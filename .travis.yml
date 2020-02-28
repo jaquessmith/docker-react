@@ -10,3 +10,17 @@ before_install:
 #npm run = yarn
 script:
   - docker run -e CI=true jaquessmith/docker-react yarn test
+
+deploy:
+  # if getting a persistent missing bucket_name error with a failed build
+  #edge: true
+  provider: elasticbeanstalk
+  region: "eu-west-1"
+  app: "docker-react"
+  env: "DockerReact-env"
+  bucket_name: "elasticbeanstalk-eu-west-1-103473142110"
+  bucket_path: "docker-react"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
