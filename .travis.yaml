@@ -1,0 +1,12 @@
+# if build fails with “rakefile not found” 
+#language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t jaquessmith/docker-react -f Dockerfile.dev .
+
+#npm run = yarn
+script:
+  - docker run -e CI=true jaquessmith/docker-react yarn test
